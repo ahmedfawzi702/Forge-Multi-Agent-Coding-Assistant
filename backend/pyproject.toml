@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "forge-coding-agent"
+version = "0.3.0"
+description = "A local, evidence-grounded multi-agent coding workspace"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.115,<1", "uvicorn[standard]>=0.30,<1",
+  "pydantic>=2.10,<3", "pydantic-settings>=2.7,<3",
+  "sqlalchemy>=2.0,<3", "langgraph>=1.0,<2",
+  "httpx>=0.28,<1", "pathspec>=0.12,<2",
+  "tree-sitter>=0.25,<0.27", "tree-sitter-javascript>=0.23,<0.26", "tree-sitter-typescript>=0.23,<0.25",
+  "pytest>=8,<10", "ruff>=0.9,<1", "bandit>=1.8,<2",
+  "pywinpty>=3,<4; sys_platform == 'win32'",
+  "ptyprocess>=0.7,<1; sys_platform != 'win32'",
+]
+
+[project.optional-dependencies]
+dev = ["pytest-asyncio>=0.25,<2", "mypy>=1.14,<2"]
+postgres = ["psycopg[binary]>=3.2,<4"]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+[tool.setuptools.package-data]
+app = ["prompts/*.md"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501", "B008"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true

@@ -1,0 +1,4 @@
+# Install from the repository root: python -m pip install -r requirements.txt
+# Exact runtime versions are constrained by the preserved development lock.
+-r backend/requirements.lock
+-e ./backend
